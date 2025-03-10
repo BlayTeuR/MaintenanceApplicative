@@ -11,7 +11,6 @@ public class Game implements IGame {
 
    ArrayList<Player> players = new ArrayList<Player>();
    int[] places = new int[6];
-   int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
 
    LinkedList popQuestions = new LinkedList();
@@ -41,7 +40,6 @@ public class Game implements IGame {
 
    public boolean add(String playerName) {
       places[howManyPlayers()] = 1;
-      purses[howManyPlayers()] = 0;
       inPenaltyBox[howManyPlayers()] = false;
       Player player = new Player(playerName);
       players.add(player);
@@ -120,10 +118,10 @@ public class Game implements IGame {
       if (inPenaltyBox[currentPlayer]) {
          if (isGettingOutOfPenaltyBox) {
             System.out.println("Answer was corrent!!!!");
-            purses[currentPlayer]++;
+            players.get(currentPlayer).setPurses();
             System.out.println(players.get(currentPlayer)
                                + " now has "
-                               + purses[currentPlayer]
+                               + players.get(currentPlayer).getPurses()
                                + " Gold Coins.");
 
             boolean winner = didPlayerWin();
@@ -141,10 +139,10 @@ public class Game implements IGame {
       } else {
 
          System.out.println("Answer was corrent!!!!");
-         purses[currentPlayer]++;
+         players.get(currentPlayer).setPurses();
          System.out.println(players.get(currentPlayer)
                             + " now has "
-                            + purses[currentPlayer]
+                            + players.get(currentPlayer).getPurses()
                             + " Gold Coins.");
 
          boolean winner = didPlayerWin();
@@ -167,6 +165,6 @@ public class Game implements IGame {
 
 
    private boolean didPlayerWin() {
-      return !(purses[currentPlayer] == 6);
+      return !(players.get(currentPlayer).getPurses() == 6);
    }
 }

@@ -6,7 +6,8 @@ import java.util.LinkedList;
 // REFACTOR ME
 public class Game implements IGame {
 
-   private final final
+   public static int PURSES = 6;
+   public static int CONST2 = 12;
 
    ArrayList players = new ArrayList();
    int[] places = new int[6];

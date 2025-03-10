@@ -5,6 +5,9 @@ import java.util.LinkedList;
 
 // REFACTOR ME
 public class Game implements IGame {
+
+   private final final
+
    ArrayList players = new ArrayList();
    int[] places = new int[6];
    int[] purses = new int[6];
@@ -62,9 +65,7 @@ public class Game implements IGame {
             places[currentPlayer] = places[currentPlayer] + roll;
             if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
 
-            System.out.println(players.get(currentPlayer)
-                               + "'s new location is "
-                               + places[currentPlayer]);
+            System.out.println(players.get(currentPlayer) + "'s new location is " + places[currentPlayer]);
             System.out.println("The category is " + currentCategory());
             askQuestion();
          } else {
@@ -77,9 +78,7 @@ public class Game implements IGame {
          places[currentPlayer] = places[currentPlayer] + roll;
          if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
 
-         System.out.println(players.get(currentPlayer)
-                            + "'s new location is "
-                            + places[currentPlayer]);
+         System.out.println(players.get(currentPlayer) + "'s new location is " + places[currentPlayer]);
          System.out.println("The category is " + currentCategory());
          askQuestion();
       }
@@ -87,28 +86,32 @@ public class Game implements IGame {
    }
 
    private void askQuestion() {
-      if (currentCategory() == "Pop")
-         System.out.println(popQuestions.removeFirst());
-      if (currentCategory() == "Science")
-         System.out.println(scienceQuestions.removeFirst());
-      if (currentCategory() == "Sports")
-         System.out.println(sportsQuestions.removeFirst());
-      if (currentCategory() == "Rock")
-         System.out.println(rockQuestions.removeFirst());
+      switch (currentCategory()){
+         case "Pop" :
+            System.out.println(popQuestions.removeFirst());
+            break;
+         case "Science" :
+            System.out.println(scienceQuestions.removeFirst());
+            break;
+         case "Sports" :
+            System.out.println(sportsQuestions.removeFirst());
+            break;
+         case "Rock" :
+            System.out.println(rockQuestions.removeFirst());
+      }
    }
 
-
    private String currentCategory() {
-      if (places[currentPlayer] - 1 == 0) return "Pop";
-      if (places[currentPlayer] - 1 == 4) return "Pop";
-      if (places[currentPlayer] - 1 == 8) return "Pop";
-      if (places[currentPlayer] - 1 == 1) return "Science";
-      if (places[currentPlayer] - 1 == 5) return "Science";
-      if (places[currentPlayer] - 1 == 9) return "Science";
-      if (places[currentPlayer] - 1 == 2) return "Sports";
-      if (places[currentPlayer] - 1 == 6) return "Sports";
-      if (places[currentPlayer] - 1 == 10) return "Sports";
-      return "Rock";
+      switch ((places[currentPlayer] - 1) % 4){
+         case 0 :
+            return "Pop";
+         case 1 :
+            return "Science";
+         case 2 :
+            return "Sports";
+         default:
+            return "Rock";
+      }
    }
 
    public boolean handleCorrectAnswer() {

@@ -1,29 +1,18 @@
 package trivia;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
-// REFACTOR ME
 public class Game implements IGame {
 
    public static int CASE_NUMBER = 12;
-   ArrayList<Player> players = new ArrayList<Player>();
-
-   LinkedList popQuestions = new LinkedList();
-   LinkedList scienceQuestions = new LinkedList();
-   LinkedList sportsQuestions = new LinkedList();
-   LinkedList rockQuestions = new LinkedList();
+   private Questions questions;
+   ArrayList<Player> players = new ArrayList<>();
 
    int currentPlayer = 0;
    boolean isGettingOutOfPenaltyBox;
 
    public Game() {
-      for (int i = 0; i < 50; i++) {
-         popQuestions.addLast("Pop Question " + i);
-         scienceQuestions.addLast(("Science Question " + i));
-         sportsQuestions.addLast(("Sports Question " + i));
-         rockQuestions.addLast("Rock Question " + i);
-      }
+      questions = new Questions();
    }
 
    public boolean add(String playerName) {
@@ -60,21 +49,8 @@ public class Game implements IGame {
       askQuestion();
    }
 
-
-   private void askQuestion() {
-      switch (currentCategory()){
-         case "Pop" :
-            System.out.println(popQuestions.removeFirst());
-            break;
-         case "Science" :
-            System.out.println(scienceQuestions.removeFirst());
-            break;
-         case "Sports" :
-            System.out.println(sportsQuestions.removeFirst());
-            break;
-         case "Rock" :
-            System.out.println(rockQuestions.removeFirst());
-      }
+   private void askQuestion(){
+      System.out.println(questions.getNextQuestion(currentCategory()));
    }
 
    private String currentCategory() {
@@ -124,7 +100,6 @@ public class Game implements IGame {
       if (currentPlayer == players.size()) currentPlayer = 0;
       return true;
    }
-
 
    private boolean didPlayerWin() {
       return !(players.get(currentPlayer).getPurses() == 6);

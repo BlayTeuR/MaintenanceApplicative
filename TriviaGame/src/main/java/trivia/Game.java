@@ -6,12 +6,9 @@ import java.util.LinkedList;
 // REFACTOR ME
 public class Game implements IGame {
 
-   public static int PURSES = 6;
    public static int CASE_NUMBER = 12;
 
    ArrayList<Player> players = new ArrayList<Player>();
-   int[] places = new int[6];
-   // boolean[] inPenaltyBox = new boolean[6];
 
    LinkedList popQuestions = new LinkedList();
    LinkedList scienceQuestions = new LinkedList();
@@ -26,21 +23,11 @@ public class Game implements IGame {
          popQuestions.addLast("Pop Question " + i);
          scienceQuestions.addLast(("Science Question " + i));
          sportsQuestions.addLast(("Sports Question " + i));
-         rockQuestions.addLast(createRockQuestion(i));
+         rockQuestions.addLast("Rock Question " + i);
       }
    }
 
-   public String createRockQuestion(int index) {
-      return "Rock Question " + index;
-   }
-
-   public boolean isPlayable() {
-      return (howManyPlayers() >= 2);
-   }
-
    public boolean add(String playerName) {
-      places[howManyPlayers()] = 1;
-      // inPenaltyBox[howManyPlayers()] = false;
       Player player = new Player(playerName);
       players.add(player);
 
@@ -48,11 +35,7 @@ public class Game implements IGame {
       System.out.println("They are player number " + players.size());
       return true;
    }
-
-   public int howManyPlayers() {
-      return players.size();
-   }
-
+   
    public void roll(int roll) {
       System.out.println(players.get(currentPlayer) + " is the current player");
       System.out.println("They have rolled a " + roll);
@@ -62,10 +45,10 @@ public class Game implements IGame {
             isGettingOutOfPenaltyBox = true;
 
             System.out.println(players.get(currentPlayer).getName() + " is getting out of the penalty box");
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > CASE_NUMBER) places[currentPlayer] = places[currentPlayer] - CASE_NUMBER;
+            players.get(currentPlayer).setPlaces(players.get(currentPlayer).getPlaces() + roll);
+            if (players.get(currentPlayer).getPlaces() > CASE_NUMBER) players.get(currentPlayer).setPlaces(players.get(currentPlayer).getPlaces() - CASE_NUMBER);
 
-            System.out.println(players.get(currentPlayer).getName() + "'s new location is " + places[currentPlayer]);
+            System.out.println(players.get(currentPlayer).getName() + "'s new location is " + players.get(currentPlayer).getPlaces());
             System.out.println("The category is " + currentCategory());
             askQuestion();
          } else {
@@ -75,10 +58,10 @@ public class Game implements IGame {
 
       } else {
 
-         places[currentPlayer] = places[currentPlayer] + roll;
-         if (places[currentPlayer] > CASE_NUMBER) places[currentPlayer] = places[currentPlayer] - CASE_NUMBER;
+         players.get(currentPlayer).setPlaces(players.get(currentPlayer).getPlaces() + roll);
+         if (players.get(currentPlayer).getPlaces() > CASE_NUMBER) players.get(currentPlayer).setPlaces(players.get(currentPlayer).getPlaces() - CASE_NUMBER);
 
-         System.out.println(players.get(currentPlayer).getName() + "'s new location is " + places[currentPlayer]);
+         System.out.println(players.get(currentPlayer).getName() + "'s new location is " + players.get(currentPlayer).getPlaces());
          System.out.println("The category is " + currentCategory());
          askQuestion();
       }
@@ -102,7 +85,7 @@ public class Game implements IGame {
    }
 
    private String currentCategory() {
-      switch ((places[currentPlayer] - 1) % 4){
+      switch ((players.get(currentPlayer).getPlaces() - 1) % 4){
          case 0 :
             return "Pop";
          case 1 :

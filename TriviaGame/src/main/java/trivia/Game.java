@@ -7,7 +7,6 @@ import java.util.LinkedList;
 public class Game implements IGame {
 
    public static int CASE_NUMBER = 12;
-
    ArrayList<Player> players = new ArrayList<Player>();
 
    LinkedList popQuestions = new LinkedList();
@@ -35,38 +34,32 @@ public class Game implements IGame {
       System.out.println("They are player number " + players.size());
       return true;
    }
-   
+
    public void roll(int roll) {
       System.out.println(players.get(currentPlayer) + " is the current player");
       System.out.println("They have rolled a " + roll);
 
       if (players.get(currentPlayer).isInPenalityBox()) {
-         if (roll % 2 != 0) {
-            isGettingOutOfPenaltyBox = true;
-
-            System.out.println(players.get(currentPlayer).getName() + " is getting out of the penalty box");
-            players.get(currentPlayer).setPlaces(players.get(currentPlayer).getPlaces() + roll);
-            if (players.get(currentPlayer).getPlaces() > CASE_NUMBER) players.get(currentPlayer).setPlaces(players.get(currentPlayer).getPlaces() - CASE_NUMBER);
-
-            System.out.println(players.get(currentPlayer).getName() + "'s new location is " + players.get(currentPlayer).getPlaces());
-            System.out.println("The category is " + currentCategory());
-            askQuestion();
-         } else {
+         if (roll % 2 == 0) {
             System.out.println(players.get(currentPlayer).getName() + " is not getting out of the penalty box");
             isGettingOutOfPenaltyBox = false;
+            return;
          }
 
-      } else {
-
-         players.get(currentPlayer).setPlaces(players.get(currentPlayer).getPlaces() + roll);
-         if (players.get(currentPlayer).getPlaces() > CASE_NUMBER) players.get(currentPlayer).setPlaces(players.get(currentPlayer).getPlaces() - CASE_NUMBER);
-
-         System.out.println(players.get(currentPlayer).getName() + "'s new location is " + players.get(currentPlayer).getPlaces());
-         System.out.println("The category is " + currentCategory());
-         askQuestion();
+         isGettingOutOfPenaltyBox = true;
+         System.out.println(players.get(currentPlayer).getName() + " is getting out of the penalty box");
       }
 
+      int newPlaces = players.get(currentPlayer).getPlaces() + roll;
+      if (newPlaces > CASE_NUMBER) newPlaces -= CASE_NUMBER;
+      players.get(currentPlayer).setPlaces(newPlaces);
+
+      System.out.println(players.get(currentPlayer).getName()
+              + "'s new location is " + players.get(currentPlayer).getPlaces());
+      System.out.println("The category is " + currentCategory());
+      askQuestion();
    }
+
 
    private void askQuestion() {
       switch (currentCategory()){

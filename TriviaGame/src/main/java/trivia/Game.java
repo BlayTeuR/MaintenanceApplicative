@@ -7,9 +7,9 @@ import java.util.LinkedList;
 public class Game implements IGame {
 
    public static int PURSES = 6;
-   public static int CONST2 = 12;
+   public static int CASE_NUMBER = 12;
 
-   ArrayList players = new ArrayList();
+   ArrayList<Player> players = new ArrayList<Player>();
    int[] places = new int[6];
    int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
@@ -43,7 +43,8 @@ public class Game implements IGame {
       places[howManyPlayers()] = 1;
       purses[howManyPlayers()] = 0;
       inPenaltyBox[howManyPlayers()] = false;
-      players.add(playerName);
+      Player player = new Player(playerName);
+      players.add(player);
 
       System.out.println(playerName + " was added");
       System.out.println("They are player number " + players.size());
@@ -62,24 +63,24 @@ public class Game implements IGame {
          if (roll % 2 != 0) {
             isGettingOutOfPenaltyBox = true;
 
-            System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+            System.out.println(players.get(currentPlayer).getName() + " is getting out of the penalty box");
             places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+            if (places[currentPlayer] > CASE_NUMBER) places[currentPlayer] = places[currentPlayer] - CASE_NUMBER;
 
-            System.out.println(players.get(currentPlayer) + "'s new location is " + places[currentPlayer]);
+            System.out.println(players.get(currentPlayer).getName() + "'s new location is " + places[currentPlayer]);
             System.out.println("The category is " + currentCategory());
             askQuestion();
          } else {
-            System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+            System.out.println(players.get(currentPlayer).getName() + " is not getting out of the penalty box");
             isGettingOutOfPenaltyBox = false;
          }
 
       } else {
 
          places[currentPlayer] = places[currentPlayer] + roll;
-         if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+         if (places[currentPlayer] > CASE_NUMBER) places[currentPlayer] = places[currentPlayer] - CASE_NUMBER;
 
-         System.out.println(players.get(currentPlayer) + "'s new location is " + places[currentPlayer]);
+         System.out.println(players.get(currentPlayer).getName() + "'s new location is " + places[currentPlayer]);
          System.out.println("The category is " + currentCategory());
          askQuestion();
       }
@@ -156,7 +157,7 @@ public class Game implements IGame {
 
    public boolean wrongAnswer() {
       System.out.println("Question was incorrectly answered");
-      System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
+      System.out.println(players.get(currentPlayer).getName() + " was sent to the penalty box");
       inPenaltyBox[currentPlayer] = true;
 
       currentPlayer++;

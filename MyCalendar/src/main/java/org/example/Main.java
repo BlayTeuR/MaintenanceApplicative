@@ -176,9 +176,10 @@ public class Main {
                         int minute = Integer.parseInt(scanner.nextLine());
                         System.out.print("Durée (en minutes) : ");
                         int duree = Integer.parseInt(scanner.nextLine());
+                        DureeEvenement dureeEvenement = new DureeEvenement(duree);
 
                         calendar.ajouterEvent(EventType.RDV_PERSONNEL, titreEvenement, utilisateur,
-                                LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), duree,
+                                LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), dureeEvenement,
                                 "", "", 0);
 
                         System.out.println("Événement ajouté.");
@@ -201,6 +202,7 @@ public class Main {
                         int minute2 = Integer.parseInt(scanner.nextLine());
                         System.out.print("Durée (en minutes) : ");
                         int duree2 = Integer.parseInt(scanner.nextLine());
+                        DureeEvenement dureeEvenement1 = new DureeEvenement(duree2);
                         System.out.println("Lieu :");
                         String lieu = scanner.nextLine();
 
@@ -214,7 +216,7 @@ public class Main {
                         }
 
                         calendar.ajouterEvent(EventType.REUNION, titreEvenement1, utilisateur,
-                                LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2,
+                                LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), dureeEvenement1,
                                 lieu, participants, 0);
 
                         System.out.println("Événement ajouté.");
@@ -239,7 +241,7 @@ public class Main {
                         int frequence = Integer.parseInt(scanner.nextLine());
 
                         calendar.ajouterEvent(EventType.PERIODIQUE, titreEvenement2, utilisateur,
-                                LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), 0,
+                                LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), new DureeEvenement(0),
                                 "", "", frequence);
 
                         System.out.println("Événement ajouté.");

@@ -7,18 +7,18 @@ public class Event {
     private final TitreEvenement title;
     public String proprietaire;
     public LocalDateTime dateDebut;
-    public int dureeMinutes;
+    private final DureeEvenement dureeEvenement;
     public String lieu; // utilisé seulement pour REUNION
     public String participants; // séparés par virgules (pour REUNION uniquement)
     public int frequenceJours; // uniquement pour PERIODIQUE
 
-    public Event(EventType type, TitreEvenement title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
+    public Event(EventType type, TitreEvenement title, String proprietaire, LocalDateTime dateDebut, DureeEvenement dureeEvenement,
                  String lieu, String participants, int frequenceJours) {
         this.type = type;
         this.title = title;
         this.proprietaire = proprietaire;
         this.dateDebut = dateDebut;
-        this.dureeMinutes = dureeMinutes;
+        this.dureeEvenement = dureeEvenement;
         this.lieu = lieu;
         this.participants = participants;
         this.frequenceJours = frequenceJours;
@@ -38,5 +38,9 @@ public class Event {
 
     public EventType getType() {
         return type;
+    }
+
+    public DureeEvenement getDureeEvenement() {
+        return dureeEvenement;
     }
 }

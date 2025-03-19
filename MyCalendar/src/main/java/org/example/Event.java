@@ -2,18 +2,18 @@ package org.example;
 
 import java.time.LocalDateTime;
 
-public class Event {
+public abstract class Event {
     private final EventType type;
     private final TitreEvenement title;
     public String proprietaire;
     public LocalDateTime dateDebut;
     private final DureeEvenement dureeEvenement;
-    public String lieu; // utilisé seulement pour REUNION
+    private final Lieu lieu; // utilisé seulement pour REUNION
     public String participants; // séparés par virgules (pour REUNION uniquement)
     public int frequenceJours; // uniquement pour PERIODIQUE
 
     public Event(EventType type, TitreEvenement title, String proprietaire, LocalDateTime dateDebut, DureeEvenement dureeEvenement,
-                 String lieu, String participants, int frequenceJours) {
+                 Lieu lieu, String participants, int frequenceJours) {
         this.type = type;
         this.title = title;
         this.proprietaire = proprietaire;
@@ -24,17 +24,7 @@ public class Event {
         this.frequenceJours = frequenceJours;
     }
 
-    public String description() {
-        String desc = "";
-        if (type == EventType.RDV_PERSONNEL) {
-            desc = "RDV : " + title + " à " + dateDebut.toString();
-        } else if (type == EventType.REUNION) {
-            desc = "Réunion : " + title + " à " + lieu + " avec " + participants;
-        } else if (type == EventType.PERIODIQUE) {
-            desc = "Événement périodique : " + title + " tous les " + frequenceJours + " jours";
-        }
-        return desc;
-    }
+    public abstract void description();
 
     public EventType getType() {
         return type;

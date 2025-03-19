@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CalendarManager {
-    public List<Event> events;
+    private List<Event> events;
 
     public CalendarManager() {
         this.events = new ArrayList<>();
@@ -55,5 +55,9 @@ public class CalendarManager {
         for (Event e : events) {
             System.out.println(e.description());
         }
+    }
+
+    public List<Event> getEvents() {
+        return events;
     }
 }

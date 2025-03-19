@@ -163,6 +163,7 @@ public class Main {
                         // Ajout simplifié d'un RDV personnel
                         System.out.print("Titre de l'événement : ");
                         String titre = scanner.nextLine();
+                        TitreEvenement titreEvenement = new TitreEvenement(titre);
                         System.out.print("Année (AAAA) : ");
                         int annee = Integer.parseInt(scanner.nextLine());
                         System.out.print("Mois (1-12) : ");
@@ -176,7 +177,7 @@ public class Main {
                         System.out.print("Durée (en minutes) : ");
                         int duree = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEvent("RDV_PERSONNEL", titre, utilisateur,
+                        calendar.ajouterEvent(EventType.RDV_PERSONNEL, titreEvenement, utilisateur,
                                 LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), duree,
                                 "", "", 0);
 
@@ -187,6 +188,7 @@ public class Main {
                         // Ajout simplifié d'une réunion
                         System.out.print("Titre de l'événement : ");
                         String titre2 = scanner.nextLine();
+                        TitreEvenement titreEvenement1 = new TitreEvenement(titre2);
                         System.out.print("Année (AAAA) : ");
                         int annee2 = Integer.parseInt(scanner.nextLine());
                         System.out.print("Mois (1-12) : ");
@@ -211,7 +213,7 @@ public class Main {
                             participants += ", " + scanner.nextLine();
                         }
 
-                        calendar.ajouterEvent("REUNION", titre2, utilisateur,
+                        calendar.ajouterEvent(EventType.REUNION, titreEvenement1, utilisateur,
                                 LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2,
                                 lieu, participants, 0);
 
@@ -222,6 +224,7 @@ public class Main {
                         // Ajout simplifié d'une réunion
                         System.out.print("Titre de l'événement : ");
                         String titre3 = scanner.nextLine();
+                        TitreEvenement titreEvenement2 = new TitreEvenement(titre3);
                         System.out.print("Année (AAAA) : ");
                         int annee3 = Integer.parseInt(scanner.nextLine());
                         System.out.print("Mois (1-12) : ");
@@ -235,7 +238,7 @@ public class Main {
                         System.out.print("Frequence (en jours) : ");
                         int frequence = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEvent("PERIODIQUE", titre3, utilisateur,
+                        calendar.ajouterEvent(EventType.PERIODIQUE, titreEvenement2, utilisateur,
                                 LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), 0,
                                 "", "", frequence);
 

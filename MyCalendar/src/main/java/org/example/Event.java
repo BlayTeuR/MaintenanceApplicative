@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Event {
     private final EventType type;
-    public String title;
+    private final TitreEvenement title;
     public String proprietaire;
     public LocalDateTime dateDebut;
     public int dureeMinutes;
@@ -12,7 +12,7 @@ public class Event {
     public String participants; // séparés par virgules (pour REUNION uniquement)
     public int frequenceJours; // uniquement pour PERIODIQUE
 
-    public Event(EventType type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
+    public Event(EventType type, TitreEvenement title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
                  String lieu, String participants, int frequenceJours) {
         this.type = type;
         this.title = title;

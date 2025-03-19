@@ -21,7 +21,7 @@ public class CalendarManager {
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
         List<Event> result = new ArrayList<>();
         for (Event e : events) {
-            if (e.getClass() == Periodique.class) {
+            if (e instanceof Periodique) {
                 LocalDateTime temp = e.dateDebut;
                 while (temp.isBefore(fin)) {
                     if (!temp.isBefore(debut)) {
@@ -41,7 +41,7 @@ public class CalendarManager {
         LocalDateTime fin1 = e1.dateDebut.plusMinutes(e1.getDureeEvenement().dureeMinutes());
         LocalDateTime fin2 = e2.dateDebut.plusMinutes(e2.getDureeEvenement().dureeMinutes());
 
-        if (e1.getClass() == Periodique.class || e2.getClass() == Periodique.class) {
+        if (e1 instanceof Periodique || e2 instanceof Periodique) {
             return false; // Simplification abusive
         }
 

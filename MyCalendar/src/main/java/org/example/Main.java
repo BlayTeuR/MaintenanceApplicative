@@ -16,10 +16,10 @@ public class Main {
     public static void main(String[] args) {
         CalendarManager calendar = new CalendarManager();
         Scanner scanner = new Scanner(System.in);
-        String utilisateur = null;
+        Utilisateur utilisateur = null;
         boolean continuer = true;
 
-        String utilisateurs[] = new String[99];
+        Utilisateur utilisateurs[] = new Utilisateur[99];
         String motsDePasses[] = new String[99];
         int nbUtilisateurs = 0;
 
@@ -45,18 +45,19 @@ public class Main {
                 System.out.println("2 - Créer un compte");
                 System.out.println("Choix : ");
 
+                // Il faudra modifié cette partie
                 switch (scanner.nextLine()) {
                     case "1":
                         System.out.print("Nom d'utilisateur: ");
-                        utilisateur = scanner.nextLine();
+                        String userName = scanner.nextLine();
 
-                        if (utilisateur.equals("Roger")) {
+                        if (userName.equals("Roger")) {
                             String motDePasse = scanner.nextLine();
                             if (!motDePasse.equals("Chat")) {
                                 utilisateur = null;
                             }
                         } else {
-                            if (utilisateur.equals("Pierre")) {
+                            if (userName.equals("Pierre")) {
                                 String motDePasse = scanner.nextLine();
                                 if (!motDePasse.equals("KiRouhl")) {
                                     utilisateur = null;
@@ -76,7 +77,8 @@ public class Main {
 
                     case "2":
                         System.out.print("Nom d'utilisateur: ");
-                        utilisateur = scanner.nextLine();
+                        String userName1 = scanner.nextLine();
+                        utilisateur = new Utilisateur(userName1);
                         System.out.print("Mot de passe: ");
                         String motDePasse = scanner.nextLine();
                         System.out.print("Répéter mot de passe: ");
@@ -93,7 +95,7 @@ public class Main {
             }
 
             while (continuer && utilisateur != null) {
-                System.out.println("\nBonjour, " + utilisateur);
+                System.out.println("\nBonjour, " + utilisateur.getName());
                 System.out.println("=== Menu Gestionnaire d'Événements ===");
                 System.out.println("1 - Voir les événements");
                 System.out.println("2 - Ajouter un rendez-vous perso");

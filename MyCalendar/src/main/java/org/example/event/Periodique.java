@@ -2,13 +2,14 @@ package org.example.event;
 
 import org.example.DureeEvenement;
 import org.example.TitreEvenement;
+import org.example.Utilisateur;
 
 import java.time.LocalDateTime;
 
 public class Periodique extends Event {
     private final int frequenceJours;
 
-    public Periodique(TitreEvenement titreEvenement, String proprietaire, LocalDateTime dateDebut, DureeEvenement dureeEvenement, int frequenceJours) {
+    public Periodique(TitreEvenement titreEvenement, Utilisateur proprietaire, LocalDateTime dateDebut, DureeEvenement dureeEvenement, int frequenceJours) {
         super(titreEvenement, proprietaire, dateDebut, dureeEvenement);
         this.frequenceJours = frequenceJours;
     }

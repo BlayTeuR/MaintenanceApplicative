@@ -3,7 +3,7 @@ package org.example;
 import java.time.LocalDateTime;
 
 public class Event {
-    public String type; // "RDV_PERSONNEL", "REUNION", "PERIODIQUE"
+    private final EventType type;
     public String title;
     public String proprietaire;
     public LocalDateTime dateDebut;
@@ -12,7 +12,7 @@ public class Event {
     public String participants; // séparés par virgules (pour REUNION uniquement)
     public int frequenceJours; // uniquement pour PERIODIQUE
 
-    public Event(String type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
+    public Event(EventType type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
                  String lieu, String participants, int frequenceJours) {
         this.type = type;
         this.title = title;
@@ -34,5 +34,9 @@ public class Event {
             desc = "Événement périodique : " + title + " tous les " + frequenceJours + " jours";
         }
         return desc;
+    }
+
+    public EventType getType() {
+        return type;
     }
 }

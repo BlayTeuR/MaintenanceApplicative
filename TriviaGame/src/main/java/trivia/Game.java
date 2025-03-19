@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Game implements IGame {
 
    public static int CASE_NUMBER = 12;
-   private Questions questions;
+   private final Questions questions;
    ArrayList<Player> players = new ArrayList<>();
 
    int currentPlayer = 0;

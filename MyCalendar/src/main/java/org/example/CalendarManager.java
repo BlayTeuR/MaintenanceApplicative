@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.event.Event;
+import org.example.event.Periodique;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,23 +14,21 @@ public class CalendarManager {
         this.events = new ArrayList<>();
     }
 
-    public void ajouterEvent(EventType type, TitreEvenement title, String proprietaire, LocalDateTime dateDebut, DureeEvenement dureeEvenement,
-                             String lieu, String participants, int frequenceJours) {
-        Event e = new Event(type, title, proprietaire, dateDebut, dureeEvenement, lieu, participants, frequenceJours);
+    public void ajouterEvent(Event e){
         events.add(e);
     }
 
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
         List<Event> result = new ArrayList<>();
         for (Event e : events) {
-            if (e.getType() == EventType.PERIODIQUE) {
+            if (e.getClass() == Periodique.class) {
                 LocalDateTime temp = e.dateDebut;
                 while (temp.isBefore(fin)) {
                     if (!temp.isBefore(debut)) {
                         result.add(e);
                         break;
                     }
-                    temp = temp.plusDays(e.frequenceJours);
+                    temp = temp.plusDays(((Periodique) e).getFrequenceJours());
                 }
             } else if (!e.dateDebut.isBefore(debut) && !e.dateDebut.isAfter(fin)) {
                 result.add(e);
@@ -40,7 +41,7 @@ public class CalendarManager {
         LocalDateTime fin1 = e1.dateDebut.plusMinutes(e1.getDureeEvenement().dureeMinutes());
         LocalDateTime fin2 = e2.dateDebut.plusMinutes(e2.getDureeEvenement().dureeMinutes());
 
-        if (e1.getType() == EventType.PERIODIQUE || e2.getType() == EventType.PERIODIQUE) {
+        if (e1.getClass() == Periodique.class || e2.getClass() == Periodique.class) {
             return false; // Simplification abusive
         }
 

@@ -1,16 +1,7 @@
 package org.example;
 
-import org.example.event.Event;
-import org.example.event.Periodique;
-import org.example.event.RdvPersonnel;
-import org.example.event.Reunion;
-
-import java.time.LocalDateTime;
-import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
+import org.example.actions.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,6 +13,19 @@ public class Main {
         Utilisateur utilisateurs[] = new Utilisateur[99];
         String motsDePasses[] = new String[99];
         int nbUtilisateurs = 0;
+
+        Map<String, Action> eventActions = new HashMap<>();
+        eventActions.put("1", new ActionAfficherEvenements());
+        eventActions.put("2", new AfficherEvenementMois());
+        eventActions.put("3", new AfficherEvenementSemaine());
+        eventActions.put("4", new AfficherEvenementJours());
+
+        Map<String, Action> actions = new HashMap<>();
+        actions.put("2", new AjoutRdvPeso());
+        actions.put("3", new AjoutReunion());
+        actions.put("4", new AjoutPeriodique());
+
+
 
         while (true) {
 
@@ -39,60 +43,19 @@ public class Main {
                 System.out.println(
                         "                                                                                   __/ |");
                 System.out.println(
+
                         "                                                                                  |___/");
+                    System.out.println("1 - Se connecter");
+                    System.out.println("2 - Créer un compte");
+                    System.out.print("Choix : ");
+                    String choix = scanner.nextLine();
 
-                System.out.println("1 - Se connecter");
-                System.out.println("2 - Créer un compte");
-                System.out.println("Choix : ");
-
-                // Il faudra modifié cette partie
-                switch (scanner.nextLine()) {
-                    case "1":
-                        System.out.print("Nom d'utilisateur: ");
-                        String userName = scanner.nextLine();
-
-                        if (userName.equals("Roger")) {
-                            String motDePasse = scanner.nextLine();
-                            if (!motDePasse.equals("Chat")) {
-                                utilisateur = null;
-                            }
-                        } else {
-                            if (userName.equals("Pierre")) {
-                                String motDePasse = scanner.nextLine();
-                                if (!motDePasse.equals("KiRouhl")) {
-                                    utilisateur = null;
-                                }
-                            } else {
-                                System.out.print("Mot de passe: ");
-                                String motDePasse = scanner.nextLine();
-
-                                for (int i = 0; i < nbUtilisateurs; i = i + 1) {
-                                    if (utilisateurs[i].equals(utilisateur) && motsDePasses[i].equals(motDePasse)) {
-                                        utilisateur = utilisateurs[i];
-                                    }
-                                }
-                            }
-                        }
-                        break;
-
-                    case "2":
-                        System.out.print("Nom d'utilisateur: ");
-                        String userName1 = scanner.nextLine();
-                        utilisateur = new Utilisateur(userName1);
-                        System.out.print("Mot de passe: ");
-                        String motDePasse = scanner.nextLine();
-                        System.out.print("Répéter mot de passe: ");
-                        if (scanner.nextLine().equals(motDePasse)) {
-                            utilisateurs[nbUtilisateurs] = utilisateur;
-                            motsDePasses[nbUtilisateurs] = motDePasse;
-                            nbUtilisateurs = nbUtilisateurs + 1;
-                        } else {
-                            System.out.println("Les mots de passes ne correspondent pas...");
-                            utilisateur = null;
-                        }
-                        break;
+                    if (choix.equals("1")) {
+                        utilisateur = new Login(utilisateurs, motsDePasses, nbUtilisateurs).seConnecter(scanner, calendar, utilisateur);
+                    } else if (choix.equals("2")) {
+                        new Signin(utilisateurs, motsDePasses, nbUtilisateurs).action(scanner, calendar, utilisateur);
+                    }
                 }
-            }
 
             while (continuer && utilisateur != null) {
                 System.out.println("\nBonjour, " + utilisateur.getName());
@@ -118,144 +81,24 @@ public class Main {
 
                         choix = scanner.nextLine();
 
-                        switch (choix) {
-                            case "1":
-                                calendar.afficherEvenements();
-                                break;
-
-                            case "2":
-                                System.out.print("Entrez l'année (AAAA) : ");
-                                int anneeMois = Integer.parseInt(scanner.nextLine());
-                                System.out.print("Entrez le mois (1-12) : ");
-                                int mois = Integer.parseInt(scanner.nextLine());
-
-                                LocalDateTime debutMois = LocalDateTime.of(anneeMois, mois, 1, 0, 0);
-                                LocalDateTime finMois = debutMois.plusMonths(1).minusSeconds(1);
-
-                                afficherListe(calendar.eventsDansPeriode(debutMois, finMois));
-                                break;
-
-                            case "3":
-                                System.out.print("Entrez l'année (AAAA) : ");
-                                int anneeSemaine = Integer.parseInt(scanner.nextLine());
-                                System.out.print("Entrez le numéro de semaine (1-52) : ");
-                                int semaine = Integer.parseInt(scanner.nextLine());
-
-                                LocalDateTime debutSemaine = LocalDateTime.now()
-                                        .withYear(anneeSemaine)
-                                        .with(WeekFields.of(Locale.FRANCE).weekOfYear(), semaine)
-                                        .with(WeekFields.of(Locale.FRANCE).dayOfWeek(), 1)
-                                        .withHour(0).withMinute(0);
-                                LocalDateTime finSemaine = debutSemaine.plusDays(7).minusSeconds(1);
-
-                                afficherListe(calendar.eventsDansPeriode(debutSemaine, finSemaine));
-                                break;
-
-                            case "4":
-                                System.out.print("Entrez l'année (AAAA) : ");
-                                int anneeJour = Integer.parseInt(scanner.nextLine());
-                                System.out.print("Entrez le mois (1-12) : ");
-                                int moisJour = Integer.parseInt(scanner.nextLine());
-                                System.out.print("Entrez le jour (1-31) : ");
-                                int jour = Integer.parseInt(scanner.nextLine());
-
-                                LocalDateTime debutJour = LocalDateTime.of(anneeJour, moisJour, jour, 0, 0);
-                                LocalDateTime finJour = debutJour.plusDays(1).minusSeconds(1);
-
-                                afficherListe(calendar.eventsDansPeriode(debutJour, finJour));
-                                break;
+                        Action action = eventActions.get(choix);
+                        if (action != null) {
+                            action.action(scanner, calendar, utilisateur);
+                        } else {
+                            System.out.println("Choix invalide, veuillez réessayer.");
                         }
-                        break;
 
                     case "2":
                         // Ajout simplifié d'un RDV personnel
-                        System.out.print("Titre de l'événement : ");
-                        String titre = scanner.nextLine();
-                        TitreEvenement titreEvenement = new TitreEvenement(titre);
-                        System.out.print("Année (AAAA) : ");
-                        int annee = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Mois (1-12) : ");
-                        int moisRdv = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Jour (1-31) : ");
-                        int jourRdv = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Heure début (0-23) : ");
-                        int heure = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Minute début (0-59) : ");
-                        int minute = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Durée (en minutes) : ");
-                        int duree = Integer.parseInt(scanner.nextLine());
-                        DureeEvenement dureeEvenement = new DureeEvenement(duree);
-                        Event eRdv = new RdvPersonnel(titreEvenement, utilisateur,
-                                LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), dureeEvenement);
-                        calendar.ajouterEvent(eRdv);
 
-                        System.out.println("Événement ajouté.");
-                        break;
+                        choix = scanner.nextLine();
 
-                    case "3":
-                        // Ajout simplifié d'une réunion
-                        System.out.print("Titre de l'événement : ");
-                        String titre2 = scanner.nextLine();
-                        TitreEvenement titreEvenement1 = new TitreEvenement(titre2);
-                        System.out.print("Année (AAAA) : ");
-                        int annee2 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Mois (1-12) : ");
-                        int moisRdv2 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Jour (1-31) : ");
-                        int jourRdv2 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Heure début (0-23) : ");
-                        int heure2 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Minute début (0-59) : ");
-                        int minute2 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Durée (en minutes) : ");
-                        int duree2 = Integer.parseInt(scanner.nextLine());
-                        DureeEvenement dureeEvenement1 = new DureeEvenement(duree2);
-                        System.out.println("Lieu :");
-                        String nomLieu = scanner.nextLine();
-                        Lieu lieu = new Lieu(nomLieu);
-
-                        List<Participant> participants = new ArrayList<>();
-
-                        boolean encore = true;
-
-                        Reunion eReunion = new Reunion(titreEvenement1, utilisateur, LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), dureeEvenement1, lieu, (ArrayList<Participant>) participants);
-                        eReunion.ajouterParticipant(eReunion.getProprietaire());
-
-                        System.out.println("Ajouter un participant ? (oui / non)");
-                        while (scanner.nextLine().equals("oui")) {
-                            System.out.println("Saisir le nom du participant :");
-                            String nom = scanner.nextLine();
-                            Participant participant = new Participant(nom);
-                            eReunion.ajouterParticipant(participant);
+                        Action actionBis = actions.get(choix);
+                        if (actionBis != null) {
+                            actionBis.action(scanner, calendar, utilisateur);
+                        } else {
+                            System.out.println("Choix invalide, veuillez réessayer.");
                         }
-
-                        calendar.ajouterEvent(eReunion);
-                        System.out.println("Événement ajouté.");
-                        break;
-
-                    case "4":
-                        // Ajout simplifié d'une réunion
-                        System.out.print("Titre de l'événement : ");
-                        String titre3 = scanner.nextLine();
-                        TitreEvenement titreEvenement2 = new TitreEvenement(titre3);
-                        System.out.print("Année (AAAA) : ");
-                        int annee3 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Mois (1-12) : ");
-                        int moisRdv3 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Jour (1-31) : ");
-                        int jourRdv3 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Heure début (0-23) : ");
-                        int heure3 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Minute début (0-59) : ");
-                        int minute3 = Integer.parseInt(scanner.nextLine());
-                        System.out.print("Frequence (en jours) : ");
-                        int frequence = Integer.parseInt(scanner.nextLine());
-
-                        Periodique ePeriodique = new Periodique(titreEvenement2, utilisateur, LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), new DureeEvenement(0), frequence);
-
-                        calendar.ajouterEvent(ePeriodique);
-                        System.out.println("Événement ajouté.");
-                        break;
 
                     default:
                         System.out.println("Déconnexion ! Voulez-vous continuer ? (O/N)");
@@ -263,17 +106,6 @@ public class Main {
 
                         utilisateur = null;
                 }
-            }
-        }
-    }
-
-    private static void afficherListe(List<Event> evenements) {
-        if (evenements.isEmpty()) {
-            System.out.println("Aucun événement trouvé pour cette période.");
-        } else {
-            System.out.println("Événements trouvés : ");
-            for (Event e : evenements) {
-                System.out.println("- " + e.description());
             }
         }
     }

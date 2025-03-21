@@ -38,7 +38,6 @@ public class CalendarManager {
     }
 
     public boolean conflit(Event e1, Event e2) {
-        LocalDateTime fin1 = e1.dateDebut.plusMinutes(e1.getDureeEvenement().dureeMinutes());
         LocalDateTime fin2 = e2.dateDebut.plusMinutes(e2.getDureeEvenement().dureeMinutes());
 
         if (e1 instanceof Periodique || e2 instanceof Periodique) {

@@ -21,6 +21,17 @@ public class Reunion extends Event {
         return "Réunion : " + this.getTitle() + " à " + lieu + " avec " + participants;
     }
 
+    @Override
+    public boolean conflit(Event autreEvenement) {
+        if (autreEvenement instanceof Reunion) {
+            LocalDateTime fin1 = this.dateDebut.plusMinutes(this.getDureeEvenement().dureeMinutes());
+            LocalDateTime fin2 = autreEvenement.dateDebut.plusMinutes(autreEvenement.getDureeEvenement().dureeMinutes());
+
+            return this.dateDebut.isBefore(fin2) && fin1.isAfter(autreEvenement.dateDebut);
+        }
+        return false;
+    }
+
     public void ajouterParticipant(Participant participant) {
         participants.add(participant);
     }

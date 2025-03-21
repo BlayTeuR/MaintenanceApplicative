@@ -19,6 +19,20 @@ public class Periodique extends Event {
         return "Événement périodique : " + getTitle() + " tous les " + frequenceJours + " jours";
     }
 
+    @Override
+    public boolean conflit(Event autreEvenement) {
+        if (autreEvenement instanceof Periodique) {
+            LocalDateTime temp = this.dateDebut;
+            while (temp.isBefore(autreEvenement.dateDebut.plusMinutes(autreEvenement.getDureeEvenement().dureeMinutes()))) {
+                if (temp.isEqual(autreEvenement.dateDebut)) {
+                    return true;
+                }
+                temp = temp.plusDays(this.frequenceJours);
+            }
+        }
+        return false;
+    }
+
     public int getFrequenceJours() {
         return frequenceJours;
     }

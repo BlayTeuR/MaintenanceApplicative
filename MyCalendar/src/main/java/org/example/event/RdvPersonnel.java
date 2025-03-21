@@ -15,5 +15,16 @@ public class RdvPersonnel extends Event {
     public String description() {
         return "RDV : " + getTitle() + " à " + dateDebut;
     }
+
+    @Override
+    public boolean conflit(Event autreEvenement) {
+        if (autreEvenement instanceof RdvPersonnel) {
+            LocalDateTime fin1 = this.dateDebut.plusMinutes(this.getDureeEvenement().dureeMinutes());
+            LocalDateTime fin2 = autreEvenement.dateDebut.plusMinutes(autreEvenement.getDureeEvenement().dureeMinutes());
+
+            return this.dateDebut.isBefore(fin2) && fin1.isAfter(autreEvenement.dateDebut);
+        }
+        return false;
+    }
 }
 

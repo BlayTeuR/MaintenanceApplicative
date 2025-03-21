@@ -1,6 +1,7 @@
 package org.example.actions;
 
 import org.example.*;
+import org.example.event.Event;
 import org.example.event.Reunion;
 
 import java.time.LocalDateTime;
@@ -47,7 +48,19 @@ public class AjoutReunion implements Action{
             eReunion.ajouterParticipant(participant);
         }
 
-        calendarManager.ajouterEvent(eReunion);
-        System.out.println("Événement ajouté.");
+        boolean conflitTrouve = false;
+        for (Event e : calendarManager.getEvents()) {
+            if (calendarManager.conflit(eReunion, e)) {
+                conflitTrouve = true;
+                break;
+            }
+        }
+
+        if (conflitTrouve) {
+            System.out.println("Erreur : Il y a un conflit avec un autre événement.");
+        } else {
+            calendarManager.ajouterEvent(eReunion);
+            System.out.println("Événement ajouté.");
+        }
     }
 }

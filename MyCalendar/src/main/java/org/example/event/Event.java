@@ -22,6 +22,8 @@ public abstract class Event {
 
     public abstract String description();
 
+    public abstract boolean conflit(Event event);
+
     public DureeEvenement getDureeEvenement() {
         return dureeEvenement;
     }

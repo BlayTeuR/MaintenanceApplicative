@@ -7,12 +7,9 @@ public class Main {
     public static void main(String[] args) {
         CalendarManager calendar = new CalendarManager();
         Scanner scanner = new Scanner(System.in);
+        UserManager userManager = new UserManager();
         Utilisateur utilisateur = null;
         boolean continuer = true;
-
-        Utilisateur utilisateurs[] = new Utilisateur[99];
-        String motsDePasses[] = new String[99];
-        int nbUtilisateurs = 0;
 
         Map<String, Action> eventActions = new HashMap<>();
         eventActions.put("1", new ActionAfficherEvenements());
@@ -24,8 +21,6 @@ public class Main {
         actions.put("2", new AjoutRdvPeso());
         actions.put("3", new AjoutReunion());
         actions.put("4", new AjoutPeriodique());
-
-
 
         while (true) {
 
@@ -51,9 +46,9 @@ public class Main {
                     String choix = scanner.nextLine();
 
                     if (choix.equals("1")) {
-                        utilisateur = new Login(utilisateurs, motsDePasses, nbUtilisateurs).seConnecter(scanner, calendar, utilisateur);
+                        utilisateur = new Login(userManager).seConnecter(scanner);
                     } else if (choix.equals("2")) {
-                        new Signin(utilisateurs, motsDePasses, nbUtilisateurs).action(scanner, calendar, utilisateur);
+                        new Signin(userManager).action(scanner);
                     }
                 }
 
@@ -69,42 +64,37 @@ public class Main {
 
                 String choix = scanner.nextLine();
 
-                switch (choix) {
-                    case "1":
-                        System.out.println("\n=== Menu de visualisation d'Événements ===");
-                        System.out.println("1 - Afficher TOUS les événements");
-                        System.out.println("2 - Afficher les événements d'un MOIS précis");
-                        System.out.println("3 - Afficher les événements d'une SEMAINE précise");
-                        System.out.println("4 - Afficher les événements d'un JOUR précis");
-                        System.out.println("5 - Retour");
-                        System.out.print("Votre choix : ");
+                if(choix.equals("1")) {
+                    System.out.println("\n=== Menu de visualisation d'Événements ===");
+                    System.out.println("1 - Afficher TOUS les événements");
+                    System.out.println("2 - Afficher les événements d'un MOIS précis");
+                    System.out.println("3 - Afficher les événements d'une SEMAINE précise");
+                    System.out.println("4 - Afficher les événements d'un JOUR précis");
+                    System.out.println("5 - Retour");
+                    System.out.print("Votre choix : ");
 
-                        choix = scanner.nextLine();
+                    choix = scanner.nextLine();
 
-                        Action action = eventActions.get(choix);
-                        if (action != null) {
-                            action.action(scanner, calendar, utilisateur);
-                        } else {
-                            System.out.println("Choix invalide, veuillez réessayer.");
-                        }
+                    Action action = eventActions.get(choix);
+                    if (action != null) {
+                        action.action(scanner, calendar, utilisateur);
+                    } else {
+                        System.out.println("Choix invalide, veuillez réessayer.");
+                    }
+                } else if(choix.equals("5")) {
 
-                    case "2":
-                        // Ajout simplifié d'un RDV personnel
+                    System.out.println("Déconnexion ! Voulez-vous continuer ? (O/N)");
+                    continuer = scanner.nextLine().trim().equalsIgnoreCase("oui");
 
-                        choix = scanner.nextLine();
+                    utilisateur = null;
 
-                        Action actionBis = actions.get(choix);
-                        if (actionBis != null) {
-                            actionBis.action(scanner, calendar, utilisateur);
-                        } else {
-                            System.out.println("Choix invalide, veuillez réessayer.");
-                        }
-
-                    default:
-                        System.out.println("Déconnexion ! Voulez-vous continuer ? (O/N)");
-                        continuer = scanner.nextLine().trim().equalsIgnoreCase("oui");
-
-                        utilisateur = null;
+                } else {
+                    Action actionBis = actions.get(choix);
+                    if (actionBis != null) {
+                        actionBis.action(scanner, calendar, utilisateur);
+                    } else {
+                        System.out.println("Choix invalide, veuillez réessayer.");
+                    }
                 }
             }
         }

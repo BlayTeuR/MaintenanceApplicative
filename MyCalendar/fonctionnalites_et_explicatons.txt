@@ -1,0 +1,9 @@
+Architecture de l'application :
+
+
+
+Ajout de fonctionnalites / amélioration :
+- Amélioration de les gestion des utilisateurs :
+    - Utilisation de List et Map plutôt que des tableaux
+    - Séparation de la logique en différentes classes (UserManager, Signin, Login, PasswordManager)
+    - Sécurité renforcée avec le hashage des mdp (BCrypt)

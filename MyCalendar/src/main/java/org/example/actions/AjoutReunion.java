@@ -31,12 +31,15 @@ public class AjoutReunion implements Action{
         String nomLieu = scanner.nextLine();
         Lieu lieu = new Lieu(nomLieu);
 
-        List<Participant> participants = new ArrayList<>();
+        ArrayList<Participant> participants = new ArrayList<>();
 
-        Reunion eReunion = new Reunion(titreEvenement1, utilisateur, LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), dureeEvenement1, lieu, (ArrayList<Participant>) participants);
+        Reunion eReunion = new Reunion(titreEvenement1, utilisateur, LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), dureeEvenement1, lieu, participants);
         eReunion.ajouterParticipant(eReunion.getProprietaire());
 
         System.out.println("Ajouter un participant ? (oui / non)");
+
+        // Corriger la boucle pour ajouter des participants
+
         while (scanner.nextLine().equals("oui")) {
             System.out.println("Saisir le nom du participant :");
             String nom = scanner.nextLine();

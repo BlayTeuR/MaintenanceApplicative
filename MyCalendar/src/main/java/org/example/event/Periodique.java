@@ -33,6 +33,18 @@ public class Periodique extends Event {
         return false;
     }
 
+    public boolean aOccurrenceDansPeriode(LocalDateTime debut, LocalDateTime fin) {
+        LocalDateTime temp = this.dateDebut;
+        while (!temp.isAfter(fin)) {
+            if (!temp.isBefore(debut)) {
+                return true;
+            }
+            temp = temp.plusDays(this.frequenceJours);
+        }
+        return false;
+    }
+
+
     public int getFrequenceJours() {
         return frequenceJours;
     }

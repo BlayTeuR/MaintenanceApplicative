@@ -108,11 +108,27 @@
       <workItem from="1742377183275" duration="105000" />
       <workItem from="1742377301350" duration="4711000" />
       <workItem from="1742564817757" duration="5225000" />
-      <workItem from="1742571594699" duration="2550000" />
+      <workItem from="1742571594699" duration="3161000" />
+      <workItem from="1742753412510" duration="341000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/actions/Action.java</url>
+          <line>11</line>
+          <properties class="org.example.actions.Action" method="action">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

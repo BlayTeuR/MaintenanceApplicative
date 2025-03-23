@@ -6,6 +6,7 @@ import org.example.event.Periodique;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CalendarManager {
     private List<Event> events;
@@ -19,35 +20,15 @@ public class CalendarManager {
     }
 
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
-        List<Event> result = new ArrayList<>();
-        for (Event e : events) {
-            if (e instanceof Periodique) {
-                LocalDateTime temp = e.dateDebut;
-                while (temp.isBefore(fin)) {
-                    if (!temp.isBefore(debut)) {
-                        result.add(e);
-                        break;
-                    }
-                    temp = temp.plusDays(((Periodique) e).getFrequenceJours());
-                }
-            } else if (!e.dateDebut.isBefore(debut) && !e.dateDebut.isAfter(fin)) {
-                result.add(e);
-            }
-        }
-        return result;
+        return events.stream()
+                .filter(e -> (e instanceof Periodique && ((Periodique) e).aOccurrenceDansPeriode(debut, fin)) ||
+                        (!(e instanceof Periodique) && !e.dateDebut.isBefore(debut) && !e.dateDebut.isAfter(fin)))
+                .collect(Collectors.toList());
     }
 
+
     public boolean conflit(Event e1, Event e2) {
-        LocalDateTime fin2 = e2.dateDebut.plusMinutes(e2.getDureeEvenement().dureeMinutes());
-
-        if (e1 instanceof Periodique || e2 instanceof Periodique) {
-            return false; // Simplification abusive
-        }
-
-        if (e1.dateDebut.isBefore(fin2) && fin1.isAfter(e2.dateDebut)) {
-            return true;
-        }
-        return false;
+        return e1.conflit(e2);
     }
 
     public void afficherEvenements() {

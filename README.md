@@ -1,3 +1,6 @@
+L'interface graphique ne fonctionne pas correctement.
+L'utilisation de la version v1.0.0 avec le main en ligne de commande est donc conseillé pour pour le test du logiciel
+
 # BUT 3A : Maintenance Applicative
 
 Dans ce cours, vous apprendrez à détecter les code smells et à effectuer un refactoring approprié en utilisant de bons design patterns.

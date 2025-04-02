@@ -8,28 +8,22 @@ import org.example.event.Event;
 import org.example.event.RdvPersonnel;
 
 import java.time.LocalDateTime;
-import java.util.Scanner;
 
 public class AjoutRdvPeso implements Action {
     @Override
-    public void action(Scanner scanner, CalendarManager calendarManager, Utilisateur utilisateur) {
-        // Ajout simplifié d'un RDV personnel
-        System.out.print("Titre de l'événement : ");
-        String titre = scanner.nextLine();
+    public void action(String input, CalendarManager calendarManager, Utilisateur utilisateur) {
+        // Traitement de l'entrée sous forme de chaîne (input)
+        String[] inputs = input.split(";");
+
+        String titre = inputs[0]; // Titre de l'événement
         TitreEvenement titreEvenement = new TitreEvenement(titre);
 
-        System.out.print("Année (AAAA) : ");
-        int annee = Integer.parseInt(scanner.nextLine());
-        System.out.print("Mois (1-12) : ");
-        int moisRdv = Integer.parseInt(scanner.nextLine());
-        System.out.print("Jour (1-31) : ");
-        int jourRdv = Integer.parseInt(scanner.nextLine());
-        System.out.print("Heure début (0-23) : ");
-        int heure = Integer.parseInt(scanner.nextLine());
-        System.out.print("Minute début (0-59) : ");
-        int minute = Integer.parseInt(scanner.nextLine());
-        System.out.print("Durée (en minutes) : ");
-        int duree = Integer.parseInt(scanner.nextLine());
+        int annee = Integer.parseInt(inputs[1]);
+        int moisRdv = Integer.parseInt(inputs[2]);
+        int jourRdv = Integer.parseInt(inputs[3]);
+        int heure = Integer.parseInt(inputs[4]);
+        int minute = Integer.parseInt(inputs[5]);
+        int duree = Integer.parseInt(inputs[6]);
 
         DureeEvenement dureeEvenement = new DureeEvenement(duree);
         Event eRdv = new RdvPersonnel(titreEvenement, utilisateur,

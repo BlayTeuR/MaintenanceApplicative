@@ -46,9 +46,9 @@ public class Main {
                     String choix = scanner.nextLine();
 
                     if (choix.equals("1")) {
-                        utilisateur = new Login(userManager).seConnecter(scanner);
+                        // utilisateur = new Login(userManager).seConnecter(scanner);
                     } else if (choix.equals("2")) {
-                        new Signin(userManager).action(scanner);
+                        // new Signin(userManager).action(scanner);
                     }
                 }
 
@@ -77,7 +77,7 @@ public class Main {
 
                     Action action = eventActions.get(choix);
                     if (action != null) {
-                        action.action(scanner, calendar, utilisateur);
+                       // action.action(scanner, calendar, utilisateur);
                     } else {
                         System.out.println("Choix invalide, veuillez réessayer.");
                     }
@@ -91,7 +91,7 @@ public class Main {
                 } else {
                     Action actionBis = actions.get(choix);
                     if (actionBis != null) {
-                        actionBis.action(scanner, calendar, utilisateur);
+                     //   actionBis.action(scanner, calendar, utilisateur);
                     } else {
                         System.out.println("Choix invalide, veuillez réessayer.");
                     }

@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.Scanner;
-
 public class Login {
     private UserManager userManager;
 
@@ -9,12 +7,7 @@ public class Login {
         this.userManager = userManager;
     }
 
-    public Utilisateur seConnecter(Scanner scanner) {
-        System.out.print("Nom d'utilisateur: ");
-        String username = scanner.nextLine();
-        System.out.print("Mot de passe: ");
-        String password = scanner.nextLine();
-
+    public Utilisateur seConnecter(String username, String password) {
         return userManager.seConnecter(username, password);
     }
 }

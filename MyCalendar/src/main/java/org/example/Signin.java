@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.Scanner;
-
 public class Signin {
     private UserManager userManager;
 
@@ -9,19 +7,12 @@ public class Signin {
         this.userManager = userManager;
     }
 
-    public void action(Scanner scanner) {
-        System.out.print("Nom d'utilisateur: ");
-        String username = scanner.nextLine();
-        System.out.print("Mot de passe: ");
-        String password = scanner.nextLine();
-        System.out.print("Répéter mot de passe: ");
-        String passwordConfirm = scanner.nextLine();
-
+    public String action(String username, String password, String passwordConfirm) {
         if (!password.equals(passwordConfirm)) {
-            System.out.println("Les mots de passe ne correspondent pas.");
-            return;
+            return "Les mots de passe ne correspondent pas.";
         }
 
         userManager.inscrire(username, password);
+        return "Inscription réussie.";
     }
 }

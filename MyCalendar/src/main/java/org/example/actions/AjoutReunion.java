@@ -6,45 +6,36 @@ import org.example.event.Reunion;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
-public class AjoutReunion implements Action{
+public class AjoutReunion implements Action {
     @Override
-    public void action(Scanner scanner, CalendarManager calendarManager, Utilisateur utilisateur) {
-        System.out.print("Titre de l'événement : ");
-        String titre2 = scanner.nextLine();
-        TitreEvenement titreEvenement1 = new TitreEvenement(titre2);
-        System.out.print("Année (AAAA) : ");
-        int annee2 = Integer.parseInt(scanner.nextLine());
-        System.out.print("Mois (1-12) : ");
-        int moisRdv2 = Integer.parseInt(scanner.nextLine());
-        System.out.print("Jour (1-31) : ");
-        int jourRdv2 = Integer.parseInt(scanner.nextLine());
-        System.out.print("Heure début (0-23) : ");
-        int heure2 = Integer.parseInt(scanner.nextLine());
-        System.out.print("Minute début (0-59) : ");
-        int minute2 = Integer.parseInt(scanner.nextLine());
-        System.out.print("Durée (en minutes) : ");
-        int duree2 = Integer.parseInt(scanner.nextLine());
-        DureeEvenement dureeEvenement1 = new DureeEvenement(duree2);
-        System.out.println("Lieu :");
-        String nomLieu = scanner.nextLine();
+    public void action(String input, CalendarManager calendarManager, Utilisateur utilisateur) {
+        // Traitement de l'entrée sous forme de chaîne (input)
+        String[] inputs = input.split(";");
+
+        String titre = inputs[0]; // Titre de l'événement
+        TitreEvenement titreEvenement = new TitreEvenement(titre);
+
+        int annee = Integer.parseInt(inputs[1]);
+        int moisRdv = Integer.parseInt(inputs[2]);
+        int jourRdv = Integer.parseInt(inputs[3]);
+        int heure = Integer.parseInt(inputs[4]);
+        int minute = Integer.parseInt(inputs[5]);
+        int duree = Integer.parseInt(inputs[6]);
+
+        DureeEvenement dureeEvenement = new DureeEvenement(duree);
+        String nomLieu = inputs[7]; // Lieu de la réunion
         Lieu lieu = new Lieu(nomLieu);
 
         ArrayList<Participant> participants = new ArrayList<>();
 
-        Reunion eReunion = new Reunion(titreEvenement1, utilisateur, LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), dureeEvenement1, lieu, participants);
+        Reunion eReunion = new Reunion(titreEvenement, utilisateur, LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), dureeEvenement, lieu, participants);
         eReunion.ajouterParticipant(eReunion.getProprietaire());
 
-        System.out.println("Ajouter un participant ? (oui / non)");
-
-        // Corriger la boucle pour ajouter des participants
-
-        while (scanner.nextLine().equals("oui")) {
-            System.out.println("Saisir le nom du participant :");
-            String nom = scanner.nextLine();
-            Participant participant = new Participant(nom);
+        // Traitement des participants
+        for (int i = 8; i < inputs.length; i++) {
+            String participantNom = inputs[i];
+            Participant participant = new Participant(participantNom);
             eReunion.ajouterParticipant(participant);
         }
 

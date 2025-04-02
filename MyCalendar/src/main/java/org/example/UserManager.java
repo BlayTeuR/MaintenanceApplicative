@@ -1,6 +1,11 @@
 package org.example;
 
-import java.util.*;
+import org.example.Utilisateur;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UserManager {
     private List<Utilisateur> utilisateurs;
@@ -11,6 +16,7 @@ public class UserManager {
         this.motsDePasse = new HashMap<>();
     }
 
+    // Inscription d'un nouvel utilisateur
     public boolean inscrire(String username, String password) {
         if (motsDePasse.containsKey(username)) {
             System.out.println("Ce nom d'utilisateur est déjà pris.");
@@ -22,6 +28,7 @@ public class UserManager {
         return true;
     }
 
+    // Connexion d'un utilisateur existant
     public Utilisateur seConnecter(String username, String password) {
         if (motsDePasse.containsKey(username) && motsDePasse.get(username).equals(password)) {
             System.out.println("Connexion réussie !");

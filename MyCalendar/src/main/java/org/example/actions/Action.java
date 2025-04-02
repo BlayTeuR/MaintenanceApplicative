@@ -5,11 +5,11 @@ import org.example.Utilisateur;
 import org.example.event.Event;
 
 import java.util.List;
-import java.util.Scanner;
 
 public interface Action {
 
-    void action(Scanner scanner, CalendarManager calendarManager, Utilisateur utilisateur);
+    // Modification ici pour utiliser String au lieu de Scanner
+    void action(String input, CalendarManager calendarManager, Utilisateur utilisateur);
 
     static void afficherListe(List<Event> evenements) {
         if (evenements.isEmpty()) {

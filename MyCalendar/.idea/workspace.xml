@@ -17,6 +17,7 @@
       <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/CalendarManager.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/DureeEvenement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/EventManagerGUI.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Lieu.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Login.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
@@ -73,6 +74,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Application.EventManagerGUI.executor&quot;: &quot;Run&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.CalendarManagerTest.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -88,6 +90,26 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RunManager">
+    <configuration name="EventManagerGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.EventManagerGUI" />
+      <module name="MyCalendar" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.EventManagerGUI" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -109,26 +131,15 @@
       <workItem from="1742377301350" duration="4711000" />
       <workItem from="1742564817757" duration="5225000" />
       <workItem from="1742571594699" duration="3161000" />
-      <workItem from="1742753412510" duration="341000" />
+      <workItem from="1742753412510" duration="2057000" />
+      <workItem from="1742800422342" duration="741000" />
+      <workItem from="1742891617521" duration="4043000" />
+      <workItem from="1742896936478" duration="24000" />
+      <workItem from="1742897111667" duration="800000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/org/example/actions/Action.java</url>
-          <line>11</line>
-          <properties class="org.example.actions.Action" method="action">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

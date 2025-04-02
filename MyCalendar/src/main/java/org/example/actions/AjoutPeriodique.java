@@ -8,32 +8,26 @@ import org.example.event.Event;
 import org.example.event.Periodique;
 
 import java.time.LocalDateTime;
-import java.util.Scanner;
 
 public class AjoutPeriodique implements Action {
+
     @Override
-    public void action(Scanner scanner, CalendarManager calendarManager, Utilisateur utilisateur) {
-        // Demander les informations à l'utilisateur
-        System.out.print("Titre de l'événement : ");
-        String titre3 = scanner.nextLine();
+    public void action(String input, CalendarManager calendarManager, Utilisateur utilisateur) {
+        // Exemple de modification : on suppose que l'input est un string séparé par des espaces ou d'autres séparateurs
+        String[] inputs = input.split(";");
+
+        // Traitement des données d'entrée
+        String titre3 = inputs[0]; // Titre de l'événement
         TitreEvenement titreEvenement2 = new TitreEvenement(titre3);
 
-        System.out.print("Année (AAAA) : ");
-        int annee3 = Integer.parseInt(scanner.nextLine());
-        System.out.print("Mois (1-12) : ");
-        int moisRdv3 = Integer.parseInt(scanner.nextLine());
-        System.out.print("Jour (1-31) : ");
-        int jourRdv3 = Integer.parseInt(scanner.nextLine());
-        System.out.print("Heure début (0-23) : ");
-        int heure3 = Integer.parseInt(scanner.nextLine());
-        System.out.print("Minute début (0-59) : ");
-        int minute3 = Integer.parseInt(scanner.nextLine());
+        int annee3 = Integer.parseInt(inputs[1]);
+        int moisRdv3 = Integer.parseInt(inputs[2]);
+        int jourRdv3 = Integer.parseInt(inputs[3]);
+        int heure3 = Integer.parseInt(inputs[4]);
+        int minute3 = Integer.parseInt(inputs[5]);
 
-        // Demander la fréquence en jours
-        System.out.print("Fréquence (en jours) : ");
-        int frequence = Integer.parseInt(scanner.nextLine());
+        int frequence = Integer.parseInt(inputs[6]);
 
-        // Vérifier que la fréquence est valide (supérieure à 0)
         if (frequence <= 0) {
             System.out.println("La fréquence doit être supérieure à 0.");
             return;

@@ -2,21 +2,25 @@ package org.example.actions;
 
 import org.example.CalendarManager;
 import org.example.Utilisateur;
-
 import java.time.LocalDateTime;
-import java.util.Scanner;
 
-public class AfficherEvenementMois implements Action{
-
+public class AfficherEvenementMois implements Action {
     @Override
-    public void action(Scanner scanner, CalendarManager calendar, Utilisateur utilisateur) {
-        System.out.print("Entrez l'année (AAAA) : ");
-        int anneeMois = Integer.parseInt(scanner.nextLine());
-        System.out.print("Entrez le mois (1-12) : ");
-        int mois = Integer.parseInt(scanner.nextLine());
+    public void action(String input, CalendarManager calendar, Utilisateur utilisateur) {
+        try {
+            // Conversion de l'input en année et mois
+            String[] dateParts = input.split("-");
+            int year = Integer.parseInt(dateParts[0]);
+            int month = Integer.parseInt(dateParts[1]);
 
-        LocalDateTime debutMois = LocalDateTime.of(anneeMois, mois, 1, 0, 0);
-        LocalDateTime finMois = debutMois.plusMonths(1).minusSeconds(1);
-        Action.afficherListe(calendar.eventsDansPeriode(debutMois, finMois));
+            // Calcul des bornes de la période (mois)
+            LocalDateTime debutMois = LocalDateTime.of(year, month, 1, 0, 0);
+            LocalDateTime finMois = debutMois.plusMonths(1).minusSeconds(1);
+
+            // Affichage des événements dans cette période
+            Action.afficherListe(calendar.eventsDansPeriode(debutMois, finMois));
+        } catch (Exception e) {
+            System.out.println("Format de date invalide. Utilisez le format 'YYYY-MM'.");
+        }
     }
 }

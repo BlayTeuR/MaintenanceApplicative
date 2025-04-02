@@ -7,3 +7,5 @@ Ajout de fonctionnalites / amélioration :
     - Utilisation de List et Map plutôt que des tableaux
     - Séparation de la logique en différentes classes (UserManager, Signin, Login, PasswordManager)
     - Sécurité renforcée avec le hashage des mdp (BCrypt)
+- Tag :
+    - le tag v1.0.0 permet d'utiliser l'application sans interface graphique dans le terminal

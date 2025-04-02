@@ -6,13 +6,13 @@ import org.example.Utilisateur;
 
 import java.time.LocalDateTime;
 
-public class Periodique extends Event {
-    private final int frequenceJours;
+    public class Periodique extends Event {
+        private final int frequenceJours;
 
-    public Periodique(TitreEvenement titreEvenement, Utilisateur proprietaire, LocalDateTime dateDebut, DureeEvenement dureeEvenement, int frequenceJours) {
-        super(titreEvenement, proprietaire, dateDebut, dureeEvenement);
-        this.frequenceJours = frequenceJours;
-    }
+        public Periodique(TitreEvenement titreEvenement, Utilisateur proprietaire, LocalDateTime dateDebut, DureeEvenement dureeEvenement, int frequenceJours) {
+            super(titreEvenement, proprietaire, dateDebut, dureeEvenement);
+            this.frequenceJours = frequenceJours;
+        }
 
     @Override
     public String description() {
